@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.gridvis_cache/
+.gridvis_server.log
+gridvis-venv/
