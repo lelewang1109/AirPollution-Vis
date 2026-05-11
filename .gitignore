@@ -1,6 +1,12 @@
 .DS_Store
 __pycache__/
 *.py[cod]
+*.egg-info/
+*.env
 .gridvis_cache/
 .gridvis_server.log
 gridvis-venv/
+venv/
+.env/
+.data/
+data/

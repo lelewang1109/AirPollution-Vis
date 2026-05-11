@@ -1,42 +1,70 @@
-# GridVis-LLM
+# AirPollution-Vis
 
-GridVis-LLM is a local visual analytics demo for gridded environmental data. The final demo UI is served by a small Python HTTP server; the same server also exposes the analysis APIs consumed by the frontend.
+A local visual analytics demo for gridded environmental data. The Python backend serves the demo UI and exposes APIs consumed by the frontend.
 
-## Run
+## Repository layout
+
+- `gridvis_server.py` — root launcher for the application.
+- `src/gridvis_app/` — backend server and API implementation.
+- `frontend/final/` — final presentation interface.
+- `modules/` — reusable pipeline modules for data access, grid representation, LLM planning, tool execution, and output explanation.
+- `assets/` — shared static assets such as `china.json`.
+- `data/` — raw NetCDF input dataset (large, excluded from GitHub).
+- `gridvis-venv/` — local Python virtual environment (ignored by Git).
+
+## Quick start
+
+1. Create or activate a virtual environment:
 
 ```bash
-cd /Users/lele/Desktop/GridVis-LLM
-./gridvis-venv/bin/python gridvis_server.py
+python3 -m venv gridvis-venv
+source gridvis-venv/bin/activate
 ```
 
-Open the URL printed by the terminal. By default it is:
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Optional: install the package in editable mode:
+
+```bash
+pip install -e .
+```
+
+Then run the server with either:
+
+```bash
+python gridvis_server.py
+```
+
+or:
+
+```bash
+gridvis
+```
+
+4. Open the UI in your browser:
 
 ```text
 http://127.0.0.1:8787/
 ```
 
-If that port is busy, the server automatically tries the next ports. You can also force a port:
+If port `8787` is busy, the server will automatically try the next available port.
 
-```bash
-GRIDVIS_PORT=8788 ./gridvis-venv/bin/python gridvis_server.py
-```
+## Data
 
-## Main Paths
+The dataset under `data/` is large and is not included in this repository. Place the required NetCDF files in `data/2000/`, or follow the instructions in `DATA.md`.
 
-- `gridvis_server.py`: compatibility launcher from the project root.
-- `src/gridvis_app/server.py`: actual backend server and API implementation.
-- `frontend/final/`: final presentation interface.
-- `modules/`: reusable pipeline modules for data access, representation, LLM planning, tool execution, and result explanation.
-- `legacy_frontends/`: earlier per-stage frontend prototypes kept for reference.
-- `assets/`: shared static assets such as `china.json`.
-- `data/2000/`: NetCDF input data.
-- `docs/`: runbooks, reference notes, diagrams, and media.
-
-## API Checks
+## Health checks
 
 ```bash
 curl http://127.0.0.1:8787/api/health
 curl http://127.0.0.1:8787/api/catalog
 ```
 
-The final UI is available at `/frontend/final/index.html`. The old `/03_llm_core_frontend/index.html` path is still supported as a compatibility alias.
+## Notes
+
+- Keep `gridvis-venv/` outside Git; this repo tracks source code only.
+- Use `frontend/final/index.html` for the published demo interface.
