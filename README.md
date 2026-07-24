@@ -55,7 +55,11 @@ If port `8787` is busy, the server will automatically try the next available por
 
 ## Data
 
-The dataset under `data/` is large and is not included in this repository. Place the required NetCDF files in `data/2000/`, or follow the instructions in `DATA.md`.
+The NetCDF dataset is not included in this repository.
+
+Data source: [Science Data Bank (SciDB), version V3](https://www.scidb.cn/preview?dataSetId=f782b19807ce4b1299563e6dfaf67a91&version=V3).
+
+Download the required files from the source above and place them in `data/2000/`. See `DATA.md` for the expected local layout.
 
 ## Health checks
 
