@@ -30,26 +30,6 @@ def extract_grid_features(
     hotspot_quantile: float = 0.9,
     fill_missing: bool = True,
 ) -> dict[str, Any]:
-    """Extract LLM-ready grid representations from a GridTensor or data source.
-
-    Parameters
-    ----------
-    grid:
-        A Step 1 GridTensor, a Step 1 result dictionary, or any source accepted
-        by `01_data_adapter.load_grid_data`.
-    variables:
-        Optional variables to keep when `grid` is a raw data source. When a
-        GridTensor is supplied, variables are filtered after loading.
-    block_shape:
-        `(lat_cells, lon_cells)` block size for block embeddings.
-    embedding_dim:
-        Target dimension for PCA-like deterministic embeddings.
-    hotspot_quantile:
-        Quantile threshold for hotspot detection on each variable mean map.
-    fill_missing:
-        Passed to Step 1 when `grid` is a raw data source.
-    """
-
     grid_tensor, source_summary = coerce_grid_tensor(grid, variables=variables, fill_missing=fill_missing)
     selected = filter_grid_tensor(grid_tensor, variables)
 

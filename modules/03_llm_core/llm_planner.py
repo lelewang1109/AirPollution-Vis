@@ -126,14 +126,6 @@ def plan_visualization(
     use_llm: bool = True,
     config: DashScopeConfig | None = None,
 ) -> dict[str, Any]:
-    """Convert a natural-language query and Step 2 features into a plan.
-
-    The function prefers DashScope/Qwen when `use_llm=True` and an API key is
-    available. A deterministic rule planner is always used as validation and as
-    a fallback, so callers still receive a usable strategy when the LLM call
-    fails or returns malformed JSON.
-    """
-
     config = config or DashScopeConfig.from_env()
     compact_features = compact_grid_features(grid_features or {})
     fallback = heuristic_plan(user_query, compact_features)

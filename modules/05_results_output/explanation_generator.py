@@ -31,8 +31,6 @@ def generate_result_explanation(
     use_llm: bool = True,
     model: str | None = None,
 ) -> dict[str, Any]:
-    """Generate Step 5 explanation, provenance, uncertainty, and report files."""
-
     bundle = load_step4_bundle(step4_output)
     evidence = build_evidence(bundle, data_source=data_source)
     fallback = build_fallback_explanation(evidence)

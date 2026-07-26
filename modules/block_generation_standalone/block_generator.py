@@ -49,14 +49,6 @@ def generate_blocks(
     lon: np.ndarray | None = None,
     thresholds: dict[str, float] | None = None,
 ) -> dict[str, Any]:
-    """Generate semantic blocks from a 2D grid or a 3D time stack.
-
-    `grid` accepts:
-    - 2D: `[y, x]`
-    - 3D: `[time, y, x]`, where the latest slice drives the label and the
-      whole stack supplies mean/trend/volatility context.
-    """
-
     stack = normalize_grid(grid)
     latest = stack[-1]
     mean_map = nanmean_axis0(stack)

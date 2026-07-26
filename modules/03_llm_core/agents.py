@@ -7,8 +7,6 @@ from llm_planner import DashScopeConfig, call_dashscope_chat, parse_llm_json
 
 
 class GridVisAgent:
-    """Small DashScope-backed agent with deterministic JSON output."""
-
     def __init__(self, name: str, role: str, *, config: DashScopeConfig | None = None) -> None:
         self.name = name
         self.role = role
@@ -66,8 +64,6 @@ def compact_evidence(analysis: Mapping[str, Any], query: str) -> dict[str, Any]:
 
 
 def run_llm_agents(query: str, analysis: Mapping[str, Any], *, config: DashScopeConfig | None = None) -> dict[str, Any]:
-    """Run the LLM-native analysis agents used by the frontend assistant panels."""
-
     config = config or DashScopeConfig.from_env()
     evidence = compact_evidence(analysis, query)
 

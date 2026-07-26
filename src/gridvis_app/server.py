@@ -25,8 +25,10 @@ MODULES_DIR = PROJECT_ROOT / "modules"
 LLM_CORE_DIR = MODULES_DIR / "03_llm_core"
 if str(LLM_CORE_DIR) not in sys.path:
     sys.path.insert(0, str(LLM_CORE_DIR))
-DATA_DIR = PROJECT_ROOT / "data" / "2000"
-CACHE_DIR = PROJECT_ROOT / ".gridvis_cache"
+DATA_PATH = Path("data") / "2000"
+CACHE_PATH = Path(".gridvis_cache")
+DATA_DIR = PROJECT_ROOT / DATA_PATH
+CACHE_DIR = PROJECT_ROOT / CACHE_PATH
 FRONTEND_DIR = PROJECT_ROOT / "frontend" / "final"
 FRONTEND_FILE = FRONTEND_DIR / "index.html"
 CHINA_GEOJSON = PROJECT_ROOT / "assets" / "china.json"
@@ -1165,13 +1167,6 @@ def enrich_llm_package(query: str, base: dict[str, Any], analysis: dict[str, Any
 
 
 def build_module_views(analysis: dict[str, Any]) -> dict[str, Any]:
-    """Build module-level visual contracts for the frontend.
-
-    These objects describe the processing states of the five GridVis-LLM
-    modules. They intentionally avoid raw-array dumps and expose compact
-    visual primitives: nodes, edges, glyphs, stage scores, and provenance links.
-    """
-
     blocks = analysis.get("block_semantics", {}).get("blocks", [])
     top_blocks = analysis.get("block_semantics", {}).get("top_blocks", [])
     patterns: dict[str, int] = {}
@@ -1420,7 +1415,7 @@ def build_analysis(
 
     payload = {
         "catalog": {
-            "data_dir": str(DATA_DIR),
+            "data_dir": DATA_PATH.as_posix(),
             "file_count": len(catalog.files),
             "date_start": catalog.dates[0],
             "date_end": catalog.dates[-1],
@@ -1497,7 +1492,10 @@ def build_analysis(
             ][:12],
         },
         "provenance": {
-            "source_files": [str(catalog.files[0]), str(catalog.files[-1])],
+            "source_files": [
+                catalog.files[0].relative_to(PROJECT_ROOT).as_posix(),
+                catalog.files[-1].relative_to(PROJECT_ROOT).as_posix(),
+            ],
             "source_file_count": len(catalog.files),
             "pipeline": [
                 "NetCDF catalog scan",
@@ -1511,7 +1509,7 @@ def build_analysis(
                 "LLM-ready evidence synthesis",
             ],
             "backend": "gridvis_server.py / Python stdlib HTTP API",
-            "cache_file": str(cache),
+            "cache_file": cache.relative_to(PROJECT_ROOT).as_posix(),
             "compute_seconds": safe_float(time.time() - started, 3),
         },
     }
@@ -1530,7 +1528,7 @@ def build_analysis(
 def build_catalog_payload() -> dict[str, Any]:
     catalog = get_catalog()
     return {
-        "data_dir": str(DATA_DIR),
+        "data_dir": DATA_PATH.as_posix(),
         "file_count": len(catalog.files),
         "date_start": catalog.dates[0],
         "date_end": catalog.dates[-1],

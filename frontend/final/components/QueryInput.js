@@ -79,7 +79,7 @@ export default function QueryInput({ query, onQuery, onRun, loading, apiState, a
       h("div", { className: "chat-thread" },
         h("div", { className: "chat-bubble assistant" },
           h("strong", null, "LLM Assistant"),
-          h("p", null, "我会把自然语言任务解析为变量、区域、时间、语义标签读取和可视化策略。标签由算法模块生成，我只解释证据并组织策略。")
+          h("p", null, "把任务解析为变量、区域、时间、语义标签读取，并得到可视化策略，进行解释证据。")
         ),
         h("div", { className: "chat-bubble user" },
           h("strong", null, "Current task"),

@@ -128,7 +128,7 @@ function buildMockAnalysis(query = DEFAULT_QUERY) {
 
   return {
     catalog: {
-      data_dir: "/Users/lele/Desktop/GridVis-LLM/data/2000",
+      data_dir: "data/2000",
       file_count: 152,
       date_start: "2000-01-01",
       date_end: "2000-05-31",
@@ -211,8 +211,8 @@ function buildMockAnalysis(query = DEFAULT_QUERY) {
     provenance: {
       source_file_count: 152,
       source_files: [
-        "/Users/lele/Desktop/GridVis-LLM/data/2000/20000101.nc",
-        "/Users/lele/Desktop/GridVis-LLM/data/2000/20000531.nc",
+        "data/2000/20000101.nc",
+        "data/2000/20000531.nc",
       ],
       pipeline: [
         "NetCDF catalog scan",

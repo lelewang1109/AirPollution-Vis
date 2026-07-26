@@ -32,26 +32,15 @@ function AssistantPanel({ analysis }) {
     .slice(0, 6);
   const date = analysis?.selection?.selected_date || analysis?.selection?.latest_date;
   const variable = analysis?.selection?.label || analysis?.selection?.variable || "PM2.5";
-  const metadata = analysis?.llm?.llm_metadata || {};
-  const isDashScope = metadata.mode === "dashscope_agents" || metadata.provider === "dashscope";
-  const modeLabel = isDashScope ? `DashScope · ${metadata.model || "qwen-plus"}` : `Rule fallback · ${metadata.mode || "local"}`;
-  const modeText = isDashScope
-    ? "当前解释由 DashScope agent 基于结构化 evidence 生成。"
-    : "当前未检测到可用 API Key，解释使用本地规则 fallback。";
+
   return h(RightPanel, {
     title: "LLM Analysis Assistant",
     icon: h(MiniIcon, { path: "M12 2l2.2 5.1 5.5.5-4.2 3.6 1.2 5.4L12 13.8 7.3 16.6l1.2-5.4-4.2-3.6 5.5-.5L12 2z" }),
     children: h(React.Fragment, null,
       h("div", { className: "assistant-card" },
-        h("div", { className: isDashScope ? "llm-mode real" : "llm-mode fallback" },
-          h("strong", null, "Explanation mode"),
-          h("span", null, modeLabel),
-          h("p", null, modeText)
-        ),
         h("p", null, `基于 ${date || "当前"} 中国区域 ${variable} 数据的分析结果如下：`),
         h("ul", null, points.map((point) => h("li", { key: point }, point))),
         h("p", null, "以上结论基于算法标签、结构化证据与模型解释生成，供可视分析参考。"),
-        h("span", { className: "llm-badge" }, modeLabel),
         h("time", null, new Date().toLocaleTimeString("zh-CN", { hour12: false }))
       )
     )

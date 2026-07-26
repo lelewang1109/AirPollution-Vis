@@ -25,12 +25,6 @@ FILL_VALUE_ATTRS = ("_FillValue", "missing_value", "fill_value", "nodata")
 
 @dataclass
 class GridTensor:
-    """Canonical grid tensor container.
-
-    The data array always uses dimension order: time, variable, lat, lon.
-    Masks keep the original missing geometry, even when data has been filled.
-    """
-
     data: np.ndarray
     space: dict[str, Any]
     time: list[str | None]
@@ -84,29 +78,6 @@ def load_grid_data(
     fixed_missing_threshold: float = 0.8,
     metadata: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Read, standardize, and summarize grid data.
-
-    Parameters
-    ----------
-    source:
-        A supported file path, directory, list of files, numpy array, xarray
-        Dataset, or xarray DataArray.
-    variables:
-        Optional variable names to keep. By default all numeric grid variables
-        are included.
-    coords:
-        Optional coordinates for numpy arrays or coordinate overrides.
-    fill_missing:
-        When True, return a filled tensor while preserving original masks.
-    fill_method:
-        One of: nearest, linear, linear_then_nearest.
-    fixed_missing_threshold:
-        A spatial cell is treated as fixed missing when at least this fraction
-        of all time-variable slices are missing at that cell.
-    metadata:
-        Additional metadata to merge into the output.
-    """
-
     ds, source_metadata = open_grid_dataset(source, coords=coords, metadata=metadata)
     standard = standardize_dataset(ds)
     grid_tensor = build_grid_tensor(

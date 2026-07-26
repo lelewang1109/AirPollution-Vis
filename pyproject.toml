@@ -31,7 +31,7 @@ dependencies = [
 license = "MIT"
 
 [project.urls]
-"Source" = "https://github.com/lelewang1109/GridVis-LLM"
+"Source" = "https://github.com/lelewang1109/AirPollution-Vis"
 
 [project.scripts]
 gridvis = "gridvis_app.server:main"

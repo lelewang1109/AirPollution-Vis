@@ -103,8 +103,6 @@ def execute_plan(
     variables: Sequence[str] | None = None,
     fill_missing: bool = True,
 ) -> dict[str, Any]:
-    """Execute a Step 3 visualization plan against a GridTensor or data source."""
-
     plan_dict = normalize_plan(plan)
     grid_tensor = coerce_grid_tensor(source, variables=variables, fill_missing=fill_missing)
     output_path = prepare_output_dir(output_dir)

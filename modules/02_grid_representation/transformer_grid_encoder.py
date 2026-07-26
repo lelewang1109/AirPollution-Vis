@@ -17,15 +17,6 @@ def encode_grid_transformer(
     query_text: str | None = None,
     include_saliency_map: bool = False,
 ) -> dict[str, Any]:
-    """Build a lightweight Transformer representation for generic grid data.
-
-    This is a dependency-free Transformer baseline: it tokenizes the grid into
-    spatial patches, adds deterministic 2D positional encodings, runs one
-    multi-head self-attention block, and returns patch saliency. It is designed
-    as a local substitute for ViT/CLIP-style wiring and can be replaced by a
-    pretrained model behind the same output schema.
-    """
-
     features, metadata = make_patch_feature_matrix(grid_tensor, patch_shape=patch_shape, max_tokens=max_tokens)
     if features.size == 0:
         return empty_transformer_result(model_dim=model_dim, patch_shape=patch_shape)
